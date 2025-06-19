@@ -35,7 +35,7 @@ public class DashboardUser extends VBox {
         this.setPadding(new Insets(20));
 
         HBox statCards = new HBox(20);
-        statCards.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        statCards.setAlignment(Pos.CENTER);
 
         VBox totalBookCard = createUpdatableCard("Total Book", "#3f48cc");
         totalBookValueLabel = (Label) totalBookCard.getChildren().get(1); // Dapatkan Label nilai
@@ -49,12 +49,12 @@ public class DashboardUser extends VBox {
         statCards.getChildren().addAll(totalBookCard, returnBookCard, borrowBookCard);
 
         Label dataBookLabel = new Label("Data Book");
-        dataBookLabel.setStyle("-fx-background-color: #3f48cc; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
+        dataBookLabel.setStyle("-fx-background-color: #3f48cc; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10 10 0 0;");
         dataBookLabel.setPadding(new Insets(10));
         dataBookLabel.setMaxWidth(Double.MAX_VALUE);
 
         table = new TableView<>();
-        table.setPrefHeight(200);
+        table.setPrefHeight(500);
 
         TableColumn<Book, String> colNo = new TableColumn<>("No");
         colNo.setCellValueFactory(cellData -> {
@@ -100,10 +100,12 @@ public class DashboardUser extends VBox {
         table.getColumns().addAll(colNo, colISBN, colTitle, colAuthor, colQuantity);
 
         VBox tableBox = new VBox(dataBookLabel, table);
-        tableBox.setStyle("-fx-background-color: #f8f8f8; -fx-background-radius: 0 10; -fx-border-radius: 0 10;");
+//        dataBookLabel.setStyle("-fx-background-radius: 10 10 0 0;");
+//        tableBox.setStyle("-fx-background-color: #ffffff;");
         tableBox.setPadding(new Insets(10));
+//        table.setOnMouseClicked(e-);
 
-        table.setStyle("-fx-background-radius: 10; -fx-border-radius: 0 10;");
+        table.setStyle("-fx-background-radius: 0 0 10 10; -fx-border: #000000 1px; -fx-border-radius: 0 0 10 10;");
 
         this.getChildren().addAll(statCards, tableBox);
 
@@ -113,14 +115,14 @@ public class DashboardUser extends VBox {
     }
 
     private VBox createUpdatableCard(String title, String color) {
-        Label titleLabel = new Label(title);
+        Label titleLabel = new Label(title.toUpperCase());
         titleLabel.setTextFill(Color.WHITE);
         titleLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
         // Label nilai ini akan diisi dengan "0" pada awalnya dan kemudian diupdate
         Label valueLabel = new Label("0"); // Nilai awal
         valueLabel.setTextFill(Color.WHITE);
-        valueLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        valueLabel.setStyle("-fx-font-size: 44px; -fx-font-weight: bold;");
 
         VBox box = new VBox(5, titleLabel, valueLabel);
         box.setPadding(new Insets(15));

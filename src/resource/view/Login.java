@@ -90,8 +90,7 @@ public class Login extends StackPane{
                 idField,
                 new Label("Email Address"),
                 emailField,
-                loginBtn,
-                forgotLink
+                loginBtn
         );
 
         // Form Sign Up
@@ -128,10 +127,24 @@ public class Login extends StackPane{
         loginBtn.setOnAction(e->{
 //            app.showDashboardUser();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            if (idField.getText().equals("A01") && emailField.getText().equals("admin@gmail.com")){
+            if (idField.getText().equals("M001") && emailField.getText().equals("user@gmail.com")){
+                alert.setTitle("Welcome Back User");
                 alert.setContentText("Login anda berhasil");
+                alert.setHeaderText("Welcome Back User");
+//                alert.set
                 alert.showAndWait();
+                idField.clear();
+                emailField.clear();
                 app.showDashboardUser();
+            } else if (idField.getText().equals("A001") && emailField.getText().equals("admin@gmail.com")){
+
+                idField.clear();
+                emailField.clear();
+                alert.setTitle("Welcome Back Admin");
+                alert.setContentText("Login anda berhasil");
+                alert.setHeaderText("Welcome Back Admin");
+                alert.showAndWait();
+                app.showDashboardAdmin();
             }
 //            if (idField)
         });

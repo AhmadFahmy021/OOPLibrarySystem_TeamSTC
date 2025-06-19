@@ -48,4 +48,10 @@ public class Book {
         this.cover = cover;
     }
 
+    public void setId(int id) { this.id_book = id; }
+    public void setIsbn(String isbn) { this.isbn = isbn; }
+    public void setTitle(String title) { this.title = title; }
+    public void setAuthor(String author) { this.author = author; }
+    public void setQuantity(String quantity) { this.quantity = quantity; } // <--- Menerima String
+    public void setCoverImagePath(String coverImagePath) { this.cover = coverImagePath; }
 }

@@ -1,15 +1,19 @@
 package main;
 
 import app.controller.BookController;
+import app.controller.DashboardAdminController;
 import app.controller.DashboardController;
 import app.controller.DetailBookController;
+import app.controller.admin.ManageBookController;
 import data.Book;
 import database.Koneksi;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import resource.components.layout.admin.DashboardLayoutAdmin;
 import resource.components.layout.user.DashboardLayout;
 import resource.view.Login;
+import resource.view.admin.book.AddBook;
 import resource.view.user.DashboardUser;
 
 public class Index extends Application {
@@ -17,6 +21,7 @@ public class Index extends Application {
     private String titleApp = "Library App";
 
     private DashboardLayout dashboardLayout;
+    private DashboardLayoutAdmin dashboardLayoutAdmin;
     private Scene dashboardScene; // Menyimpan referensi Scene dashboard
     private DetailBookController detailBookController;
 
@@ -33,7 +38,7 @@ public class Index extends Application {
 
     public void showLoginPage(){
         Login login = new Login(this);
-        Scene scene = new Scene(login, 1020, 520); // Ukuran default untuk Scene login
+        Scene scene = new Scene(login, 1550, 820); // Ukuran default untuk Scene login
         scene.getStylesheets().add(getClass().getResource("/resource/css/style_login.css").toExternalForm());
 
         primaryStage.setTitle(titleApp + " | Sign In & Sign Up");
@@ -41,6 +46,13 @@ public class Index extends Application {
         primaryStage.show(); // Penting: show() setelah setScene untuk pertama kali
         primaryStage.setMaximized(true); // <--- Panggil di sini setelah Scene diatur dan sebelum show
         // Ini memastikan jendela maximized saat pertama kali muncul
+    }
+    private void ensureDashboardSceneActive() {
+        if (primaryStage.getScene() != dashboardScene) {
+            System.out.println("Switching to Dashboard Scene...");
+            primaryStage.setScene(dashboardScene);
+            primaryStage.setMaximized(true); // Pastikan Stage tetap maksimal
+        }
     }
 
     public void showDashboardUser(){
@@ -64,6 +76,48 @@ public class Index extends Application {
         primaryStage.setTitle(titleApp + " | Dashboard User"); // Mengatur judul jendela
         System.out.println("Navigated to Dashboard User");
     }
+    public void showDashboardAdmin(){
+        if (dashboardLayoutAdmin == null) {
+            dashboardLayoutAdmin = new DashboardLayoutAdmin(this);
+            dashboardScene = new Scene(dashboardLayoutAdmin, 1550, 820); // Ukuran default untuk Scene dashboard
+            // Anda bisa tambahkan stylesheet global untuk dashboard di sini jika ada
+            // dashboardScene.getStylesheets().add(getClass().getResource("/resource/css/style_dashboard.css").toExternalForm());
+        }
+
+        // Pastikan primary stage diatur ke dashboardScene ini
+        // Ini akan terjadi hanya saat transisi dari login ke dashboard
+        if (primaryStage.getScene() != dashboardScene) {
+            primaryStage.setScene(dashboardScene);
+            // Re-apply maximized state when changing scenes if it might reset
+            primaryStage.setMaximized(true); // <--- PENTING: Panggil lagi di sini
+        }
+
+        DashboardAdminController dashboardAdminController = new DashboardAdminController(this);
+        dashboardLayoutAdmin.setContent(dashboardAdminController.getView()); // Mengatur konten spesifik untuk dashboard
+        primaryStage.setTitle(titleApp + " | Dashboard Admin"); // Mengatur judul jendela
+        System.out.println("Navigated to Dashboard Admin");
+    }
+
+    public void showManageBook(){
+        if (dashboardLayoutAdmin == null) {
+            dashboardLayoutAdmin = new DashboardLayoutAdmin(this);
+            dashboardScene = new Scene(dashboardLayoutAdmin, 1550, 820); // Ukuran default untuk Scene dashboard
+            // Anda bisa tambahkan stylesheet global untuk dashboard di sini jika ada
+            // dashboardScene.getStylesheets().add(getClass().getResource("/resource/css/style_dashboard.css").toExternalForm());
+        }
+
+        // Pastikan primary stage diatur ke dashboardScene ini
+        // Ini akan terjadi hanya saat transisi dari login ke dashboard
+        if (primaryStage.getScene() != dashboardScene) {
+            primaryStage.setScene(dashboardScene);
+            // Re-apply maximized state when changing scenes if it might reset
+            primaryStage.setMaximized(true); // <--- PENTING: Panggil lagi di sini
+        }
+
+        ManageBookController manageBookController = new ManageBookController(this);
+        dashboardLayoutAdmin.setContent(manageBookController.getView());
+    }
+
 
     public void showDataBookPage(){
         // Safety check, memastikan kita di dashboard scene
@@ -93,6 +147,15 @@ public class Index extends Application {
         dashboardLayout.setContent(detailBookController.getViewDetailBook());
         primaryStage.setTitle(titleApp + " | Book Details: " + book.getTitle());
         System.out.println("Navigated to Book Detail Page for: " + book.getTitle());
+    }
+
+    public void showAddBookPage(){
+            ensureDashboardSceneActive();
+//            AddBook addBookView = new AddBook(); // Buat instance AddBook View
+            ManageBookController manageBookController = new ManageBookController(this);
+            dashboardLayoutAdmin.setContent(manageBookController.getViewAddBook()); // Set sebagai konten
+            setTitle("Add New Book");
+            System.out.println("Navigated to Add New Book Page");
     }
 
     private void setTitle(String title){ // Tidak perlu titleApp di sini, sudah dihandle pemanggil
