@@ -137,7 +137,6 @@ public class Login extends StackPane{
                 emailField.clear();
                 app.showDashboardUser();
             } else if (idField.getText().equals("A001") && emailField.getText().equals("admin@gmail.com")){
-
                 idField.clear();
                 emailField.clear();
                 alert.setTitle("Welcome Back Admin");

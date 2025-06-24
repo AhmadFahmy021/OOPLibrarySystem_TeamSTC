@@ -138,7 +138,9 @@ public class DashboardUser extends VBox {
 
     public void setBooks(List<Book> books){
         // Mengonversi List<Book> ke ObservableList<Book> dan set ke TableView
+        System.out.println("cek jumlah buku di teriman"+books.size());
         table.setItems(FXCollections.observableArrayList(books));
+        System.out.println("DEBUG: Displaying " + books.size() + " books in DataBookPage.");
     }
 
     public void setTotalBuku(int totalBook){

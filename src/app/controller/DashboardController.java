@@ -22,13 +22,18 @@ public class DashboardController {
 
     public void tampilkanData(){
         List<Book> allBook = modelBook.all();
-        int totalBook = modelBook.count("where");
-
-        viewDashboardUser.setTotalBuku(totalBook);
-        viewDashboardUser.setTotalReturn(10);
-        viewDashboardUser.setTotalBorrow(10);
+//        int totalBook = modelBook.count("where");
 
         viewDashboardUser.setBooks(allBook);
+
+        int totalBooksCount = modelBook.count(null);
+        int totalReturnBooks = 0; // Ganti dengan data nyata
+        int totalBorrowedBooks = 0;
+
+        viewDashboardUser.setTotalBuku(totalBooksCount);
+        viewDashboardUser.setTotalReturn(totalReturnBooks);
+        viewDashboardUser.setTotalBorrow(totalBorrowedBooks);
+
     }
 
     public DashboardUser getView(){

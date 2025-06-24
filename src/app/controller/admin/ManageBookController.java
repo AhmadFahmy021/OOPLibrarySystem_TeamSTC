@@ -68,10 +68,11 @@ public class ManageBookController {
 
         // 3. Tangani penyimpanan gambar
         String coverImagePathForDB = ""; // Path yang akan disimpan di database
+        String coverPathDatabase;
         if (coverFile != null) {
             // Asumsi: Anda memiliki folder 'uploads/covers/' di root proyek Anda
             // Atau Anda bisa menyimpannya di src/main/resources/images/ (jika itu cara Anda mengelola aset)
-            String uploadDir = "uploads/covers/"; // Folder tempat gambar akan disimpan
+            String uploadDir = "/src/uploads/covers/"; // Folder tempat gambar akan disimpan
             File uploadFolder = new File(uploadDir);
             if (!uploadFolder.exists()) {
                 uploadFolder.mkdirs(); // Buat folder jika belum ada
@@ -80,7 +81,7 @@ public class ManageBookController {
             // Buat nama file unik untuk mencegah konflik
             String fileName = System.currentTimeMillis() + "_" + coverFile.getName();
             Path destinationPath = Paths.get(uploadDir, fileName);
-
+            coverPathDatabase = "/uploads/covers/"+fileName;
             try {
                 Files.copy(coverFile.toPath(), destinationPath);
                 coverImagePathForDB = destinationPath.toString(); // Path relatif untuk DB
@@ -96,6 +97,8 @@ public class ManageBookController {
         // 4. Buat objek Book
         // Asumsi Book ID akan di-generate oleh database (auto-increment) atau Anda punya logika lain
         // Jika ID perlu di-generate di sini, Anda harus menambahkannya
+//        System.out.println(coverImagePathForDB);
+
         Book newBook = new Book(0, isbn, title, author, quantityStr, coverImagePathForDB); // ID 0 jika auto-increment
 
         // 5. Panggil Model untuk menyimpan data

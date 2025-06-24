@@ -71,7 +71,6 @@ public class Book_Model {
             String SQL = "INSERT INTO " + table + " (isbn, title, author, quantity, cover) VALUES (?, ?, ?, ?, ?)";
             //              Kolom ke-1  2     3        4         5
             statement = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(statement);
             statement.setString(1, book.getIsbn());          // Masuk ke 'isbn'
             statement.setString(2, book.getTitle());         // Masuk ke 'title'
             statement.setString(3, book.getAuthor());        // Masuk ke 'author'

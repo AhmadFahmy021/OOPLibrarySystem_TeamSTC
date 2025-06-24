@@ -1,6 +1,7 @@
 package resource.components.layout.user;
 
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.Index;
 import resource.components.layout.user.*;
@@ -23,7 +24,8 @@ public class DashboardLayout extends BorderPane {
         mainContentContainer = new VBox(10); // Spasi antar elemen dalam konten utama
         mainContentContainer.setStyle("-fx-background-color: #f5f5f5;"); // Background untuk area konten utama
 
-        VBox.setVgrow(mainContentContainer, javafx.scene.layout.Priority.ALWAYS);
+        VBox.setVgrow(mainContentContainer, javafx.scene.layout.Priority.ALWAYS); // Biarkan konten utama tumbuh vertikal
+        HBox.setHgrow(mainContentContainer, javafx.scene.layout.Priority.ALWAYS);
 
         rightSideContent.getChildren().add(mainContentContainer);
 
