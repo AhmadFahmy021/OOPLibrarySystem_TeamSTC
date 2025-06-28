@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class Koneksi {
     public static Connection conn;
     public static Statement state;
-
+//    INI DIGUNAKAN SEBAGAI KONEKSI DATABASE
     private static final String URL = "jdbc:mysql://localhost/library";
     private static final String USER = "root";
     private static final String PASS = "";
